@@ -4,7 +4,7 @@ nginx:
   links:
     - php
   ports:
-    - "80:80"
+    - "8080:80"
   volumes:
     - ./images/php/app/public:/var/www/html/app/public
 php:
