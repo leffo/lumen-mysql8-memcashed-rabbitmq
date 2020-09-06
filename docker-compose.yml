@@ -7,6 +7,7 @@ nginx:
     - "8080:80"
   volumes:
     - ./images/php/app/public:/var/www/html/app/public
+
 php:
   build: images/php
   volumes:
@@ -31,6 +32,7 @@ php:
     DB_PASSWORD: ${DB_PASSWORD}
     MEMCACHED_HOST: cache
     CACHE_DRIVER: memcached
+
 db:
   image: mysql:8
   command: --default-authentication-plugin=mysql_native_password # needed as of mysql 8
@@ -41,5 +43,20 @@ db:
     MYSQL_DATABASE: ${MYSQL_DATABASE}
     MYSQL_USER: ${MYSQL_USERNAME}
     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
 cache:
   image: memcached:1.6-alpine
+
+rabbitmq:
+  image: rabbitmq:3-management-alpine
+  volumes:
+    - ./images/rabbitmq/etc/:/etc/rabbitmq/
+    - ./images/rabbitmq/data/:/var/lib/rabbitmq/
+    - ./images/rabbitmq/logs/:/var/log/rabbitmq/
+  environment:
+    RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+    RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+    RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+  ports:
+    - 5672:5672
+    - 15672:15672
