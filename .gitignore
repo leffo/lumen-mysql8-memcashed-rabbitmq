@@ -1,3 +1,5 @@
 .idea
 images/php/app
+images/rabbitmq/data/mnesia
+images/rabbitmq/data/.erlang.cookie
 .env
