@@ -1,5 +1,5 @@
 .idea
-images/php/app
+images/php/app/vendor
 images/rabbitmq/data/mnesia
 images/rabbitmq/data/.erlang.cookie
 .env
