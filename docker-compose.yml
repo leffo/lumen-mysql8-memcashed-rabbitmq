@@ -48,14 +48,18 @@ cache:
   image: memcached:1.6-alpine
 
 rabbitmq:
-  image: rabbitmq:3-management-alpine
-  volumes:
-    - ./images/rabbitmq/etc/:/etc/rabbitmq/
-    - ./images/rabbitmq/data/:/var/lib/rabbitmq/
-    - ./images/rabbitmq/logs/:/var/log/rabbitmq/
+  image: "rabbitmq:3-management"
   environment:
+    RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
     RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
     RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    RABBITMQ_DEFAULT_VHOST: "/"
   ports:
-    - 5672:5672
-    - 15672:15672
+    - "15672:15672"
+    - "5672:5672"
+  labels:
+    NAME: "rabbitmq1"
+  volumes:
+    - "./images/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins"
+    - "./images/rabbitmq/data/:/var/lib/rabbitmq/"
+    - "./images/rabbitmq/logs/:/var/log/rabbitmq/"
